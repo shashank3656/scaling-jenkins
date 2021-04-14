@@ -1,4 +1,4 @@
-  apiVersion: apps/v1
+apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: "jenkins-master-deployment"
@@ -25,3 +25,12 @@
           - name: "jenkins-master"
             image: "keaz/jenkins-master:alpine"
             imagePullPolicy: "IfNotPresent"
+            env:
+              - name: JAVA_OPTS
+                value: -Djenkins.install.runSetupWizard=false
+            ports: 
+              - name: http-port
+                containerPort: 8080
+              - name: jnlp-port
+                containerPort: 50000  
+            
